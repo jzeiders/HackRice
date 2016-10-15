@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "firebase": "^3.4.1",
+    "promise": "^7.1.1",
     "request": "^2.75.0"
   },
   "devDependencies": {
