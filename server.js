@@ -14,7 +14,14 @@ app.post("/getData", function(req, res) {
 		res.status("Err").send(err);
 	});
 });
-app.post("messageData", function(req,res){
+app.post("/messageData", function(req,res){
+  sentiment.analyze(req.body.string).then(function(data){
+    console.log(data);
+    res.send(JSON.stringify(data));
+  }).catch(function(err){
+    console.log(err);
+  });
+
   /*
   fb.getMessage()
 
@@ -22,9 +29,7 @@ app.post("messageData", function(req,res){
 
   */
 });
-sentiment.analyze(["Yay","This sucks","Hello World", "Goodbye World"]).then(function(data){
-  console.log(data);
-});
+
 app.listen(3000, function() {
 	console.log("started server");
 });

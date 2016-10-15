@@ -30,14 +30,19 @@ var analyze = function(string) {
 	});
 };
 var analyzeMessages = function(messages) {
+  messages =["yay", "nah","blah"]
 	return new Promise(function(resolve, reject) {
 		messagePromises = messages.map(function(message) {
 			return analyze(message);
 		});
 		Promise.all(messagePromises).then(function(data) {
-			resolve(data.map(function(v){
-        return v.documents[0].score;
-      }));
+			var avg = data.map(function(v) {
+				return v.documents[0].score;
+			}).reduce(function(a, b) {
+				return a + b
+			}) / data.length;
+      avg = Math.floor(avg*100) // Scales to 100pt Scale
+			resolve(avg)
 		}).catch(function(err) {
 			reject(err);
 		});
