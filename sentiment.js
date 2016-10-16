@@ -1,5 +1,5 @@
 // Wrapper for the sentiment calls
-
+var moment = require('moment');
 var Promise = require("promise");
 var request = require("request");
 var analyze = function(string) {
@@ -49,6 +49,23 @@ var analyzeMessages = function(messages) {
 		});
 	});
 };
+var findCloseness = function(messages){
+  messages = messages.filter(function(message){
+    return
+  }
+
+  )
+}
+
+var generatePositivities = function(friends){
+  var positivityPromises = friend.map(function(friend){
+    return {
+      positivty: analyzeMessages(friend.messages),
+      name: friend.name,
+      closeness: findCloseness(friend.messages)
+    }
+  })
+}
 module.exports = {
 	analyze: function(strings) { // Returns
 		return analyzeMessages(strings);
