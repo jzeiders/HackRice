@@ -34,40 +34,58 @@ var analyze = function(string) {
 var analyzeMessages = function(messages) {
 	return new Promise(function(resolve, reject) {
 		messagePromises = messages.map(function(message) {
-			return analyze(message);
+			return analyze(message.text);
 		});
 		Promise.all(messagePromises).then(function(data) {
-			var avg = data.map(function(v) {
-				return v.documents[0].score; // Formats Data
-			}).reduce(function(a, b) {
-				return a + b
-			}) / data.length; // Averages Data
-      avg = Math.floor(avg*100) // Scales to 100pt Scale
-			resolve(avg)
+      // console.log(data)
+      var avg = data.map(function(v) {
+        if(v.hasOwnProperty("documents"))
+          return v.documents[0].score; // Formats Data
+			})
+      var sum = 0;
+      for(var i = 0; i < avg.length; i++){
+        sum+=avg[i]
+      }
+      // console.log(sum)
+      sum /= avg.length; // Averages Data
+			sum = Math.floor(sum * 100) // Scales to 100pt Scale
+			resolve(sum)
 		}).catch(function(err) {
 			reject(err);
 		});
 	});
 };
-var findCloseness = function(messages){
-  messages = messages.filter(function(message){
-    return
-  }
+var findCloseness = function(messages) {
+	return messages.length
+};
 
-  )
-}
+var generatePositivities = function(friends) {
+	var positivityPromises = friends.map(function(friend) {
+    // console.log(friend.messages);
+    return analyzeMessages(friend.messages)
+			// analyzeMessages(friend.messages),
+			// friend.name,
+			// findCloseness(friend.messages)
+		// ]
+	});
+	return Promise.all(positivityPromises).then(function(data) {
+    var r_value = []
+    for(var i = 0; i < data.length; i++){
+      r_value.push({
+        name: friends[i].name,
+        positivity: data[i],
+        closeness: findCloseness(friends[i].messages)
 
-var generatePositivities = function(friends){
-  var positivityPromises = friend.map(function(friend){
-    return {
-      positivty: analyzeMessages(friend.messages),
-      name: friend.name,
-      closeness: findCloseness(friend.messages)
+      })
     }
-  })
-}
+      // console.log("r_value" + r_value)
+      return r_value
+	}).catch(function(err) {
+		return err;
+	});
+};
 module.exports = {
-	analyze: function(strings) { // Returns
-		return analyzeMessages(strings);
+	analyze: function(data) { // Returns
+		return generatePositivities(data);
 	}
 };

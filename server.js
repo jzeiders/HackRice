@@ -4,6 +4,17 @@ var sentiment = require("./sentiment.js");
 var bodyParser = require("body-parser");
 var Promise = require("promise");
 var cors = require("cors");
+var fb = require("./fb.js");
+var fs = require("fs")
+var data = fb.parse();
+sentiment.analyze(data).then(function(data) {
+	fs.writeFile('jackData.json', JSON.stringify(data), function(err) {
+		if (err) return console.log(err);
+	})
+}).catch(function(err) {
+	console.log(err)
+})
+
 var app = express();
 app.use(function(req, res, next) {
 	// Website you wish to allow to connect
@@ -33,7 +44,7 @@ app.post("/getData", function(req, res) {
 	});
 });
 app.post("/messageData", function(req, res) {
-  res.send("test");
+	res.send("test");
 	sentiment.analyze(["test"]).then(function(data) {
 		console.log(data);
 		res.send(JSON.stringify(data));
@@ -48,7 +59,6 @@ app.post("/messageData", function(req, res) {
 
 	*/
 });
-
 app.listen(3000, function() {
 	console.log("started server");
 });
