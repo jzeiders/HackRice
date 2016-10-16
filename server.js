@@ -33,7 +33,7 @@ app.post("/getData", function(req, res) {
 	});
 });
 app.post("/messageData", function(req, res) {
-  res.send("test")
+  res.send("test");
 	sentiment.analyze(["test"]).then(function(data) {
 		console.log(data);
 		res.send(JSON.stringify(data));
