@@ -12,53 +12,26 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<!-- END BOOTSTRAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.js"></script>
+
 </head>
-<div id="fb-root"></div>
-<script>
-  var accessToken = null;
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId: '157992357993099',
-			xfbml: true,
-			version: 'v2.8'
-		});
-		FB.AppEvents.logPageView();
-    FB.login(function(response) {
-  cconsole.log(response)
-}, {scope: 'email,user_likes'});
-	};
-
-	(function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) return;
-		js = d.createElement(s);
-		js.id = id;
-		js.src = "//connect.facebook.net/en_US/sdk.js" // #xfbml=1&version=v2.8&appId=157992357993099";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-
-	onLogin = function() {
-		FB.getLoginStatus(function(response) {
-			if (response.status === 'connected') {
-				accessToken = response.authResponse.accessToken;
-        console.log("Succesfully Loged In", response.authResponse.userID)
-			} else {
-				console.log(response)
-			}
-		});
-	}
-
-</script>
-
 <body>
-	<button id="test" class="btn btn-default" type="button">Stuuf</button>
-	<div class="fb-login-button" data-scope="email, user_likes" onLogin="onLogin()" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
-</body>
-<script>
-	$("#test").click(function() {
-		console.log("test")
-		onLogin();
-	})
-</script>
+  <div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Dropdown
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="#" id="#jack">Jack1</a></li>
+    <li><a href="#" id=#jack2>Jack2</a></li>
+    <li role="separator" class="divider"></li>
+  </ul>
+</div>
+<div>
+  <canvas id="jackChartPos" width="400" height="400"></canvas>
+  <canvas id="jackChartCloseness" width="400" height="400"></canvas>
+  <canvas id="jackPieChart" width="400" height="400"></canvas>
 
-</html>
+</div>
+<script src = "charts.js"></script>
+</body
