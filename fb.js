@@ -2,7 +2,7 @@
 var cheerio = require('cheerio');
 var fs = require('fs');
 
-$ = cheerio.load(fs.readFileSync('subset.html'));
+$ = cheerio.load(fs.readFileSync('messages.htm'));
 module.exports = {
 	parse: function() {
 		users = {};
