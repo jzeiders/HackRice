@@ -1,3 +1,5 @@
+// Wrapper for the sentiment calls
+
 var Promise = require("promise");
 var request = require("request");
 var analyze = function(string) {
@@ -30,17 +32,16 @@ var analyze = function(string) {
 	});
 };
 var analyzeMessages = function(messages) {
-  messages =["yay", "nah","blah"]
 	return new Promise(function(resolve, reject) {
 		messagePromises = messages.map(function(message) {
 			return analyze(message);
 		});
 		Promise.all(messagePromises).then(function(data) {
 			var avg = data.map(function(v) {
-				return v.documents[0].score;
+				return v.documents[0].score; // Formats Data
 			}).reduce(function(a, b) {
 				return a + b
-			}) / data.length;
+			}) / data.length; // Averages Data
       avg = Math.floor(avg*100) // Scales to 100pt Scale
 			resolve(avg)
 		}).catch(function(err) {
