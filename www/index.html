@@ -3,7 +3,6 @@
 
 <head>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
 	<!-- BOOTSTRAP -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -16,29 +15,50 @@
 </head>
 <div id="fb-root"></div>
 <script>
+  var accessToken = null;
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId: '157992357993099',
+			xfbml: true,
+			version: 'v2.8'
+		});
+		FB.AppEvents.logPageView();
+    FB.login(function(response) {
+  cconsole.log(response)
+}, {scope: 'email,user_likes'});
+	};
+
 	(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
 		if (d.getElementById(id)) return;
 		js = d.createElement(s);
 		js.id = id;
-		js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=157992357993099";
+		js.src = "//connect.facebook.net/en_US/sdk.js" // #xfbml=1&version=v2.8&appId=157992357993099";
 		fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
 
 	onLogin = function() {
 		FB.getLoginStatus(function(response) {
 			if (response.status === 'connected') {
-				var accessToken = response.authResponse.accessToken;
+				accessToken = response.authResponse.accessToken;
+        console.log("Succesfully Loged In", response.authResponse.userID)
+			} else {
+				console.log(response)
 			}
 		});
 	}
+
 </script>
 
 <body>
-	<button class="btn btn-default" type="button">Test</button>
-	<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false" onlogin="onLogin()"></div>
+	<button id="test" class="btn btn-default" type="button">Stuuf</button>
+	<div class="fb-login-button" data-scope="email, user_likes" onLogin="onLogin()" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
 </body>
-<script <script src="charts.js"></script>
-<script src="controller.js"></script>
+<script>
+	$("#test").click(function() {
+		console.log("test")
+		onLogin();
+	})
+</script>
 
 </html>
