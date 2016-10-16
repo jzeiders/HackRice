@@ -15,23 +15,28 @@
 	<!-- END BOOTSTRAP -->
 </head>
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=157992357993099";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script>
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=157992357993099";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+
+	onLogin = function() {
+		FB.getLoginStatus(function(response) {
+			if (response.status === 'connected') {
+				var accessToken = response.authResponse.accessToken;
+			}
+		});
+	}
+</script>
+
 <body>
-
-<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> -->
-	<!-- <link rel="stylesheet" href="style.css" />
-	<title>jQuery Example</title>
-
-  <button id="loginbutton" type="button" class="btn btn-default">Login</button>
-	<button id="test" type="button" class="btn btn-default">Test</button>
-	<canvas id="myChart" width="400" height="400"></canvas> -->
+	<button class="btn btn-default" type="button">Test</button>
+	<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false" onlogin="onLogin()"></div>
 </body>
 <script <script src="charts.js"></script>
 <script src="controller.js"></script>
